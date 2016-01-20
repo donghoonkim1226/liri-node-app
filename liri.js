@@ -16,6 +16,10 @@ switch(params[0]){
   userMovie();
   break;
 
+  case"spotify-this":
+  userSong();
+  break;
+
   default:
   console.log("err")
 }
@@ -52,19 +56,39 @@ function userMovie(){
         console.log(movieInfo);
         return;
       }
-    })    
+    });    
   }
 }
 
 // spotify
 
 function userSong(){
-  spotify.search({ type: 'track', query: 'dancing in the moonlight' }, function(err, data) {
-      if ( err ) {
-          console.log('Error occurred: ' + err);
-          return;
+  if(params[1] === undefined){
+    spotify.search({ type: "track", query: "what’s my age again" }, function(err, data) {
+      if (err) {
+        console.log("err");
+        return;
+      } else {
+        var songInfo = "Artist: " + data.tracks.items[0].artists[0].name + "\r\n" +
+                       "Song Name: " + data.tracks.items[0].name + "\r\n" +
+                       "Album Name: " + data.tracks.items[0].album.name + "\r\n" +
+                       "Preview URL: " + data.tracks.items[0].preview_url
+        console.log(songInfo);
       }
-   console.log(data);
-  });
+    });
+  } else {
+    spotify.search({ type: "track", query: params[1] }, function(err, data) {
+      if (err) {
+        console.log("err");
+        return;
+      } else {
+        var songInfo = "Artist: " + data.tracks.items[0].artists[0].name + "\r\n" +
+                       "Song Name: " + data.tracks.items[0].name + "\r\n" +
+                       "Album Name: " + data.tracks.items[0].album.name + "\r\n" +
+                       "Preview URL: " + data.tracks.items[0].preview_url
+        console.log(songInfo);
+      }
+    }); 
+  }
 }
 
