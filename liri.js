@@ -115,5 +115,9 @@ function userSong(){
         console.log(error);
         return;
       } 
+      for(i = 1; i <= tweets.length; i++){
+        var tweetInfo = data[i].text + "\r\n" + data[i].created_at;
+        console.log(tweetInfo);
+      }
     });
   }
